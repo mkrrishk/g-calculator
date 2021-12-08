@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply flex items-center justify-evenly w-full h-full rounded text-gc-13 relative;
+  }
+  .btn-operator {
+    @apply bg-gc-btn-gray border border-solid border-gc-btn-gray;
+  }
+  .btn-operator:active {
+    @apply border-gc-light shadow-gc-btn;
+  }
+  .btn-operand {
+    @apply bg-gc-btn-light border border-solid border-gc-btn-light;
+  }
+  .btn-operand:active {
+    @apply border-gc-btn-gray shadow-gc-btn;
+  }
+  .btn-result {
+    @apply bg-gc-blue text-white font-bold border border-solid border-gc-blue;
+  }
+  .btn-result:active {
+    @apply border-gc-border-blue shadow-gc-btn-result;
+  }
+}
+
+@layer utilities {
+  body {
+    font-family: arial, sans-serif;
+  }
+  .gc-input {
+    width: 98.5%;
+    border: 1px solid #ebebeb;
+    padding: 10px 14px 0 10px;
+  }
+  .gc-input-active {
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.3) !important;
+    border: 1px solid #4285f4 !important
+  }
+  .gc-pow {
+    font-size: 8px;
+    line-height: 8px;
+    top: -0.4em;
+  }
+}
