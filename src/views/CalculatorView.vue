@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col gap-2 w-gc-652 h-gc-300 group">
     <div
+      v-click-outside="onClickOutside"
       class="flex flex-col m-auto rounded-lg gc-input h-gc-72 group-hover:border group-hover:border-solid group-hover:border-x-gc-btn-gray group-hover:border-b-gc-btn-gray group-hover:border-t-gc-light"
+      :class="{ 'gc-input-active': isCalcInputActive }"
+      @click="isCalcInputActive = true"
     >
       <div class="flex items-center justify-between h-gc-22 text-gc-light">
         <HistoryIcon />
@@ -64,6 +67,7 @@ import GCButton from "@/components/GCButton.vue";
 import HistoryIcon from "@/components/HistoryIcon.vue";
 import { activeCalButtons, calculatorButtons, format } from "@/utils";
 import { evaluate, hasNumericValue, round } from "mathjs";
+import vClickOutside from "click-outside-vue3";
 
 export default {
   label: "CalculatorView",
@@ -71,17 +75,33 @@ export default {
     GCButton,
     HistoryIcon,
   },
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
   data() {
     return {
       buttons: calculatorButtons,
       activeButtons: activeCalButtons,
+      isCalcInputActive: false,
       result: "",
       expression: "0",
       isCalculated: false,
     };
   },
   methods: {
+    onClickOutside(event) {
+      if (event.srcElement.localName != "button") {
+        this.isCalcInputActive = false;
+      }
+    },
+    toggleCalcInputBorder() {
+      this.isCalcInputActive = false;
+      setTimeout(() => {
+        this.isCalcInputActive = true;
+      }, 100);
+    },
     onButtonClick(value) {
+      this.toggleCalcInputBorder();
       // Check if the clicked button is one of the active ones
       if (!activeCalButtons.includes(value)) return;
 
